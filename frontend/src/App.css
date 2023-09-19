@@ -1,0 +1,8 @@
+.wrapper {
+  display: grid;
+  grid-template-columns: 10% 70% 20%;
+  grid-template-areas: "navi main sidebar";
+  gap: 3rem;
+  margin: 0 auto;
+  max-width: 1960px;
+}
