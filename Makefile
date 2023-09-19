@@ -4,7 +4,7 @@ BIN_DIR := bin
 
 LDFLAGS ?= -s -w
 
-all: modules format build 
+all: modules format build frontend
 ## --------------------------------------
 ## Linting
 ## --------------------------------------
@@ -22,7 +22,7 @@ vet: ## Run go vet against code.
 .PHONY: build
 build: modules 
 	go build -o $(BIN_DIR)/accounter main.go
-	cd frontend; npm run build
+
 ## --------------------------------------
 ## Documents
 ## -------------------------------------- 	
@@ -57,3 +57,13 @@ TAG ?= latest
 
 images:
 	docker buildx build --platform linux/amd64 --build-arg ldflags="$(LDFLAGS)" -f Dockerfile -t accounter:$(TAG) . --load	
+
+## --------------------------------------
+## frontend
+## --------------------------------------
+.PHONY: frontend
+frontend: frontend-dep
+	cd frontend; npm run build
+
+frontend-dep:
+	cd frontend; npm install
